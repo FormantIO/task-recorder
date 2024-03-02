@@ -1,0 +1,17 @@
+{
+  "name": "analytics-demo-view",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 8080",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2",
+    "vite": "^2.5.4"
+  },
+  "dependencies": {
+    "@formant/data-sdk": "latest",
+    "google-protobuf": "^3.21.2"
+  }
+}

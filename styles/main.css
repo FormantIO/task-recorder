@@ -1,0 +1,95 @@
+/* Reset some default styles for a cleaner look */
+body, h1, h2, h3, ul, li, button, input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  body {
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  /* Container for the tasks */
+  #tasksContainer {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style each task item */
+  #tasksContainer div {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Style for the task description */
+  #tasksContainer label {
+    flex: 1;
+  }
+  
+  /* Strikethrough for completed tasks */
+  #tasksContainer .completed {
+    text-decoration: line-through;
+    color: #bbb;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 10px 20px;
+    background: #5c6bc0;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background: #3949ab;
+  }
+  
+  /* Input field styling */
+  input[type="text"] {
+    padding: 10px;
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+  }
+  
+  /* Checkbox styling */
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  /* Hide the default checkbox */
+  input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  
+  /* Custom checkbox styling */
+  input[type="checkbox"]:before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: text-top;
+    background: white;
+    border-radius: 50%;
+    border: 1px solid #bbb;
+  }
+  
+  /* Checked state for custom checkbox */
+  input[type="checkbox"]:checked:before {
+    background: #5c6bc0;
+    border-color: #5c6bc0;
+  }
+  

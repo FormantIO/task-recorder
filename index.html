@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Configurator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/styles/modal.css">
+    <link rel="stylesheet" href="/styles/buttons.css">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+
+</head>
+<body>
+
+    <button id="taskConfigBtn"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+
+<div id="taskModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Task</h2>
+        <input type="text" id="taskInput" placeholder="Enter Task">
+        <button id="addTaskBtn">Add Task</button>
+        <ul id="tasksList"></ul>
+    </div>
+</div>
+
+<script type="module" src="/src/config.ts"></script>
+
+<div id="tasksContainer">
+    <!-- Tasks will be populated here -->
+</div>
+
+<script type="module" src="/src/main.ts"></script>
+
+</body>
+</html>
