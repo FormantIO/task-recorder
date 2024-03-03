@@ -31,11 +31,13 @@ window.onclick = function(event: MouseEvent) {
 };
 
 function updateTasksList(): void {
-    tasksList.innerHTML = '';
-    tasks.forEach((task, index) => {
-      const listItem = document.createElement('li');
-      listItem.innerText = task.description;
-      
+  tasksList.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const listItem = document.createElement('li');
+  
+    const textSpan = document.createElement('span');
+    textSpan.textContent = task.description;
+    listItem.appendChild(textSpan);
     
       
       const deleteButton = document.createElement('button');

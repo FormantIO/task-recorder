@@ -42,27 +42,84 @@ body, h1, h2, h3, ul, li, button, input {
     color: #bbb;
   }
   
-  /* Button styling */
-  button {
-    padding: 10px 20px;
-    background: #5c6bc0;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  button:hover {
-    background: #3949ab;
-  }
+/* Reset the default user agent styling for button elements */
+button {
+  display: inline-flex; /* Allows us to center content with flexbox */
+  align-items: center; /* Aligns items vertically */
+  justify-content: center; /* Aligns items horizontally */
+  width: 40px; /* Adjust the width as needed */
+  height: 40px; /* Adjust the height to match the width for a square button */
+  padding: 0; /* Remove padding to make sure icon is centered */
+  border-radius: 4px; /* slightly rounded corners */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(92, 107, 192, 0.8); /* Light transparency */
+  border: 2px solid transparent; /* Adjust for border on hover */
+}
+
+/* Remove padding from the icon and let flexbox handle the centering */
+button i {
+  margin: 0; /* Remove margin if any */
+  font-size: 20px; /* Adjust icon size as necessary */
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background: rgba(57, 73, 171, 0.8); /* Darker shade on hover with transparency */
+  border-color: rgba(255, 255, 255, 0.5); /* White border on hover */
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: start; /* Adjust if you want to center or space the buttons differently */
+  gap: 10px; /* Space between buttons */
+  padding: 10px; /* Padding inside the button container */
+}
+
+.icon-button {
+  padding: 10px;
+  background: rgba(92, 107, 192, 0.8); /* Semi-transparent background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.icon-button:hover {
+  background: rgba(57, 73, 171, 0.8); /* Darken on hover */
+}
+
+.modal-button {
+  padding: 10px 20px;
+  background: #5c6bc0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+  background: #3949ab;
+}
+
+
   
   /* Input field styling */
   input[type="text"] {
     padding: 10px;
     width: calc(100% - 20px);
     margin-bottom: 15px;
-  }
-  
+    height: 40px; /* Make sure this height matches the button height */
+    padding: 10px;
+    margin: 0; /* Reset margin to align properly with the button */
+    border-radius: 4px 0 0 4px; /* Round only the left corners */
+    }
+    
   /* Checkbox styling */
   input[type="checkbox"] {
     margin-right: 10px;
@@ -93,3 +150,25 @@ body, h1, h2, h3, ul, li, button, input {
     border-color: #5c6bc0;
   }
   
+.completed {
+    text-decoration: line-through;
+    color: #808080; /* Gray color to indicate task is completed */
+}
+
+
+
+/* Adjustments to the task-input-container */
+.task-input-container {
+display: flex;
+align-items: center; /* This ensures vertical alignment */
+margin-bottom: 15px;
+}
+#taskInput {
+  flex-grow: 1; /* Allows the input to take up the remaining space */
+  margin-right: 5px; /* Optional: Adds some space on the right of the input field */
+}
+
+
+#tasksList li span {
+  margin-right: 10px; /* Adjust the right margin as needed */
+}

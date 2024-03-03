@@ -44,26 +44,48 @@ function displayTasks(tasks: TaskWithStatus[], userId: string): void {
         checkbox.checked = task.isCompletedToday;
 
         checkbox.addEventListener('change', async () => {
-            if (checkbox.checked) {
-                task.completionStatus[task.completionStatus.length - 1] = true;
-                await database.saveTasks(userId, tasks.map(t => ({ description: t.description, startDate: t.startDate, completionStatus: t.completionStatus })));
-            }
-            const label = document.querySelector(`label[for="task-${index}"]`);
-            if (checkbox.checked) {
-              label.classList.add('completed');
-            } else {
-              label.classList.remove('completed');
-            }
+            task.completionStatus[task.completionStatus.length - 1] = checkbox.checked;
+            await database.saveTasks(userId, tasks.map(t => ({ description: t.description, startDate: t.startDate, completionStatus: t.completionStatus })));
+            updateTaskStyle(label, checkbox.checked);
         });
 
         const label = document.createElement('label');
         label.htmlFor = `task-${index}`;
         label.textContent = task.description;
+        updateTaskStyle(label, task.isCompletedToday);
 
-        if (!task.isCompletedToday) {
-            taskItem.appendChild(checkbox);
-            taskItem.appendChild(label);
-            container.appendChild(taskItem);
+        taskItem.appendChild(checkbox);
+        taskItem.appendChild(label);
+        container.appendChild(taskItem);
+    });
+}
+
+function updateTaskStyle(label: HTMLElement, isCompleted: boolean): void {
+    if (isCompleted) {
+        label.classList.add('completed');
+    } else {
+        label.classList.remove('completed');
+    }
+}
+// Function to handle refreshing tasks
+async function refreshTasks(userId: string): Promise<void> {
+    try {
+        let tasks = await database.loadTasks(userId);
+        tasks = updateCompletionStatus(tasks);
+        console.log(tasks)
+        displayTasks(tasks, userId);
+    } catch (error) {
+        console.error("Error refreshing tasks:", error);
+    }
+}
+
+// Event listener for the refresh button
+const refreshBtn = document.getElementById('refreshBtn');
+if (refreshBtn) {
+    refreshBtn.addEventListener('click', async () => {
+        const userId = Authentication._currentUser.id;
+        if (userId) {
+            await refreshTasks(userId);
         }
     });
 }
