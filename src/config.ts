@@ -42,6 +42,7 @@ function updateTasksList(): void {
       
       const deleteButton = document.createElement('button');
       deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+      deleteButton.classList.add('icon-button'); 
       deleteButton.onclick = async () => {
         const userId = Authentication._currentUser.id;
         if (userId) {
@@ -53,6 +54,7 @@ function updateTasksList(): void {
   
       const editButton = document.createElement('button');
       editButton.innerHTML = '<i class="fas fa-edit"></i>';
+      editButton.classList.add('icon-button'); 
       editButton.onclick = async () => {
         const newDescription = prompt('Edit task description:', task.description);
         if (newDescription !== null) {
