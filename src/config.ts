@@ -22,6 +22,8 @@ btn.onclick = async function() {
 
 span.onclick = function() {
   modal.style.display = "none";
+  // Dispatch a custom event
+  document.dispatchEvent(new Event('modalClosed'));
 };
 
 window.onclick = function(event: MouseEvent) {

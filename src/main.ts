@@ -74,24 +74,20 @@ function updateTaskStyle(label: HTMLElement, isCompleted: boolean): void {
         label.classList.remove('completed');
     }
 }
-// Function to handle refreshing tasks
-async function refreshTasks(userId: string): Promise<void> {
-    try {
-        let tasks = await database.loadTasks(userId);
-        tasks = updateCompletionStatus(tasks);
-        displayTasks(tasks, userId);
-    } catch (error) {
-        console.error("Error refreshing tasks:", error);
-    }
-}
 
-// Event listener for the refresh button
-const refreshBtn = document.getElementById('refreshBtn');
-if (refreshBtn) {
-    refreshBtn.addEventListener('click', async () => {
-        const userId = Authentication._currentUser.id;
-        if (userId) {
-            await refreshTasks(userId);
-        }
-    });
-}
+document.addEventListener('modalClosed', async () => {
+    const userId = Authentication._currentUser.id;
+    if (userId) {
+      await refreshTasks(userId);
+    }
+  });
+  
+  async function refreshTasks(userId: string): Promise<void> {
+    try {
+      let tasks = await database.loadTasks(userId);
+      tasks = updateCompletionStatus(tasks);
+      displayTasks(tasks, userId);
+    } catch (error) {
+      console.error("Error refreshing tasks:", error);
+    }
+  }
