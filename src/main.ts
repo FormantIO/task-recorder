@@ -22,12 +22,12 @@ function updateCompletionStatus(tasks: Task[]): TaskWithStatus[] {
     return tasks.map(task => {
         const daysSinceStart = Math.ceil((today.getTime() - new Date(task.startDate).getTime()) / (1000 * 3600 * 24));
         // Fill in the missing days with 'false' for not completed
-        while (task.completionStatus.length < daysSinceStart) {
+        while (task.completionStatus.length < daysSinceStart + 1) {
             task.completionStatus.push(false);
         }
         return {
             ...task,
-            isCompletedToday: task.completionStatus[daysSinceStart - 1]
+            isCompletedToday: task.completionStatus[daysSinceStart]
         };
     });
 }
@@ -72,7 +72,6 @@ async function refreshTasks(userId: string): Promise<void> {
     try {
         let tasks = await database.loadTasks(userId);
         tasks = updateCompletionStatus(tasks);
-        console.log(tasks)
         displayTasks(tasks, userId);
     } catch (error) {
         console.error("Error refreshing tasks:", error);
