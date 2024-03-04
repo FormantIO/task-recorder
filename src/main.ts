@@ -45,7 +45,7 @@ function displayTasks(tasks: TaskWithStatus[], userId: string): void {
 
         checkbox.addEventListener('change', async () => {
             task.completionStatus[task.completionStatus.length - 1] = checkbox.checked;
-            await database.saveTasks(userId, tasks.map(t => ({ description: t.description, startDate: t.startDate, completionStatus: t.completionStatus })));
+            database.saveTasks(userId, tasks.map(t => ({ description: t.description, startDate: t.startDate, completionStatus: t.completionStatus })));
             updateTaskStyle(label, checkbox.checked);
         });
 
