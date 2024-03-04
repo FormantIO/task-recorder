@@ -1,19 +1,24 @@
-button {
-    background-color: #667EEA;
-    border: none;
-    color: white;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background: #2d3753; /* Background color from the HTML snippet */
+}
+
+/* Modal button styling */
+.modal-button {
     padding: 10px 20px;
-    text-align: center;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    background: rgb(26, 133, 165); /* Steel Blue */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 20px;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #5A67D8;
+.modal-button:hover {
+    background: rgb(28, 30, 45); /* Dark Slate Blue */
 }
 
 /* Enhanced Modal Styles */
@@ -31,17 +36,17 @@ button:hover {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: rgb(72, 76, 92); /* Dim Gray */
     margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid rgb(121, 124, 137); /* Cadet Blue */
     width: 50%;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .close {
-    color: #aaaaaa;
+    color: rgb(185, 187, 189); /* Light Gray */
     float: right;
     font-size: 24px;
 }
@@ -52,6 +57,8 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Rest of the styles... */
 
 /* Input field styling */
 input[type="text"] {

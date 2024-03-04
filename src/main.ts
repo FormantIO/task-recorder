@@ -44,14 +44,21 @@ function displayTasks(tasks: TaskWithStatus[], userId: string): void {
         checkbox.checked = task.isCompletedToday;
 
         checkbox.addEventListener('change', async () => {
-            task.completionStatus[task.completionStatus.length - 1] = checkbox.checked;
-            database.saveTasks(userId, tasks.map(t => ({ description: t.description, startDate: t.startDate, completionStatus: t.completionStatus })));
-            updateTaskStyle(label, checkbox.checked);
+            if (!checkbox.checked) {
+                // If the checkbox is not checked, update the task
+                task.completionStatus[task.completionStatus.length - 1] = checkbox.checked;
+                await database.saveTasks(userId, tasks.map(t => ({ description: t.description, startDate: t.startDate, completionStatus: t.completionStatus })));
+                updateTaskStyle(label, checkbox.checked);
+            } else {
+                // If the checkbox is checked, apply strikethrough and then disable it
+                updateTaskStyle(label, checkbox.checked); // Apply strikethrough before disabling
+                checkbox.disabled = true; // Now disable the checkbox
+            }
         });
-
         const label = document.createElement('label');
         label.htmlFor = `task-${index}`;
         label.textContent = task.description;
+        console.log(task.isCompletedToday);
         updateTaskStyle(label, task.isCompletedToday);
 
         taskItem.appendChild(checkbox);
