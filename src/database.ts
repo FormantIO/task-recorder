@@ -1,8 +1,9 @@
-import { KeyValue } from "@formant/data-sdk";
+import { KeyValue, Uuid } from "@formant/data-sdk";
 
 export type Task = {
   description: string;
-  startDate: Date
+  startDate: Date;
+  lastCheckedId: Uuid | null;
 };
 
 

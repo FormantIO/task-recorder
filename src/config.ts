@@ -14,7 +14,6 @@ const tasksList = document.getElementById("tasksList") as HTMLElement;
 btn.onclick = async function() {
   modal.style.display = "block";
   const userId = Authentication._currentUser.id;
-  console.log(Authentication);
   if (userId) {
     tasks = await database.loadTasks(userId);
     updateTasksList();
