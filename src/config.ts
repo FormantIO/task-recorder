@@ -14,6 +14,7 @@ const tasksList = document.getElementById("tasksList") as HTMLElement;
 btn.onclick = async function() {
   modal.style.display = "block";
   const userId = Authentication._currentUser.id;
+  console.log(Authentication);
   if (userId) {
     tasks = await database.loadTasks(userId);
     updateTasksList();
@@ -76,25 +77,36 @@ function updateTasksList(): void {
     });
   }
 
-async function addTask(): Promise<void> {
+
+  async function addTask(): Promise<void> {
     const taskInput = document.getElementById("taskInput") as HTMLInputElement;
-    if (taskInput.value) {
-      const newTask: Task = {
-        description: taskInput.value,
-        startDate: new Date(),
-        completionStatus: [false] // Initialize with false, meaning not completed
-      };
-      tasks.push(newTask);
-      updateTasksList();
-      taskInput.value = '';
-  
-      const userId = Authentication._currentUser.id;
-      if (userId) {
-        await database.saveTasks(userId, tasks);
-      }
+    const newTaskDescription = taskInput.value.trim();
+    
+    if (newTaskDescription) {
+        const userId = Authentication._currentUser.id;
+        
+        if (userId) {
+            const existingTasks = await database.loadTasks(userId);
+            
+            // Check if a task with the same description already exists
+            const isDuplicate = existingTasks.some(task => task.description.toLowerCase() === newTaskDescription.toLowerCase());
+
+            if (!isDuplicate) {
+                const newTask: Task = {
+                    description: newTaskDescription,
+                    startDate: new Date()
+                };
+                tasks.push(newTask);
+                await database.saveTasks(userId, tasks);
+                updateTasksList();
+                taskInput.value = ''; // Clear the input field
+            } else {
+                alert('A task with this description already exists.');
+            }
+        }
+    } else {
+        alert('Please enter a task description.');
     }
-  }
-  
+}
 
 document.getElementById("addTaskBtn")?.addEventListener("click", addTask);
-

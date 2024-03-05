@@ -2,8 +2,7 @@ import { KeyValue } from "@formant/data-sdk";
 
 export type Task = {
   description: string;
-  startDate: Date;
-  completionStatus: boolean[];
+  startDate: Date
 };
 
 
