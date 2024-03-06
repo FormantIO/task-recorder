@@ -25,9 +25,11 @@ span.onclick = function() {
   document.dispatchEvent(new Event('modalClosed'));
 };
 
-window.onclick = function(event: MouseEvent) {
-  if (event.target == modal) {
+window.onclick = function(event) {
+  var modalBackground = document.getElementById('taskModal');
+  if (event.target === modalBackground) {
     modal.style.display = "none";
+    document.dispatchEvent(new Event('modalClosed'));
   }
 };
 

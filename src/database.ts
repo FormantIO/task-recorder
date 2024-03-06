@@ -6,16 +6,29 @@ export type Task = {
   lastCheckedId: Uuid | null;
 };
 
+const KEY_PREFIX = "task-recorder-";
+
+// Helper function to prepend the key prefix to the user ID
+function getPrefixedUserId(userId: any) {
+  return KEY_PREFIX + userId;
+}
 
 export const database = {
   async saveTasks(userId: string, tasks: Task[]): Promise<void> {
-    await KeyValue.set(userId, JSON.stringify(tasks));
+    const prefixedUserId = getPrefixedUserId(userId);
+    await KeyValue.set(prefixedUserId, JSON.stringify(tasks));
   },
   
   async loadTasks(userId: string): Promise<Task[]> {
-    const tasksJson = await KeyValue.get(userId);
-    return tasksJson ? JSON.parse(tasksJson) : [];
+    const prefixedUserId = getPrefixedUserId(userId);
+    try {
+      const tasksJson = await KeyValue.get(prefixedUserId);
+      return tasksJson ? JSON.parse(tasksJson) : [];
+    } catch (error) {
+      return [];
+    }
   },
+  
 
   async deleteTask(userId: string, taskIndex: number): Promise<void> {
     const tasks = await this.loadTasks(userId);

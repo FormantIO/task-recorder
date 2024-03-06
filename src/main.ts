@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
+
 function updateTaskStyle(label: HTMLElement, isCompleted: boolean): void {
     if (isCompleted) {
         label.classList.add('completed');
@@ -33,13 +34,20 @@ document.addEventListener('modalClosed', async () => {
   
   async function displayAndRefreshTasks(userId: string): Promise<void> {
     const container = document.getElementById('tasksContainer');
-    if(!container){
+    const noTasksMessage = document.getElementById('noTasksMessage');
+    if(!container || !noTasksMessage){
         return;
-       
-
     }
     container.innerHTML = '';
+
     const tasks = await database.loadTasks(userId);
+    if (tasks.length === 0) {
+        // If no tasks, show the message
+        noTasksMessage.style.display = 'block';
+    } else {
+        // If there are tasks, hide the message
+        noTasksMessage.style.display = 'none';
+    }
     const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in UTC
 
     // Fetch all events in parallel
