@@ -9,8 +9,9 @@
     "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
     "typescript": "^4.3.2",
-    "vite": "^2.5.4"
+    "vite": "^5.1.5"
   },
   "dependencies": {
     "@formant/data-sdk": "latest",
