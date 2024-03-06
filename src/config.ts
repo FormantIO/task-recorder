@@ -42,7 +42,7 @@ function updateTasksList(): void {
     
       
       const deleteButton = document.createElement('button');
-      deleteButton.innerHTML = '<img src="./icons/delete.svg" alt="Delete">';
+      deleteButton.innerHTML = '<img src="./public/icons/delete.svg" alt="Delete">';
       deleteButton.classList.add('icon-button'); 
       deleteButton.onclick = async () => {
         if (userId) {
@@ -53,7 +53,7 @@ function updateTasksList(): void {
       };
   
       const editButton = document.createElement('button');
-      editButton.innerHTML =  '<img src="./icons/edit.svg" alt="Delete">';
+      editButton.innerHTML =  '<img src="./public/icons/edit.svg" alt="Edit">';
       editButton.classList.add('icon-button'); 
       editButton.onclick = async () => {
         const newDescription = prompt('Edit task description:', task.description);

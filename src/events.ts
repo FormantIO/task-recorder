@@ -19,13 +19,11 @@ export async function getEvent(token: string, lastCheckedId: Uuid): Promise<any>
       },
     });
 
-    console.log(response);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error('Failed to get event:', error);
