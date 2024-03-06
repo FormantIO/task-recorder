@@ -10,22 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v2  # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      uses: actions/checkout@v2
 
     - name: Set up Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2  # Updated to use setup-node@v2
       with:
-        node-version: '14'  # Specify the version of Node.js you want to use
+        node-version: '16'  # Updated to Node.js version 16 which is compatible with your package
 
     - name: Install and Build 🔧
       run: |
-        npm install
+        npm config set ignore-scripts true  # Ignore scripts that only need to run in a local development environment
+        npm install --production --legacy-peer-deps --no-optional  # Updated to not install optional dependencies like fsevents
         npm run build  # Build your site
 
     - name: Deploy to GitHub Pages 🚀
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+      uses: JamesIves/github-pages-deploy-action@v4  # Updated to use the latest version v4
       with:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        BRANCH: gh-pages  # The branch the action should deploy to.
-        FOLDER: dist  # The folder the action should deploy.
-        CLEAN: true  # Automatically remove deleted files from the deployment branch
+        token: ${{ secrets.GITHUB_TOKEN }}  # Changed from GH_TOKEN to GITHUB_TOKEN
+        branch: gh-pages  # The branch the action should deploy to.
+        folder: dist  # The folder the action should deploy.
+        clean: true  # Automatically remove deleted files from the deployment branch
