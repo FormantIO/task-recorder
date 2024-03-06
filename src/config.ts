@@ -3,7 +3,6 @@ import { database } from "./database";
 import { Authentication } from "@formant/data-sdk";
 import { database, Task } from "./database";
 
-
 let tasks: Task[] = [];
 
 const modal = document.getElementById("taskModal") as HTMLElement;
@@ -43,7 +42,7 @@ function updateTasksList(): void {
     
       
       const deleteButton = document.createElement('button');
-      deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+      deleteButton.innerHTML = '<img src="./icons/delete.svg" alt="Delete">';
       deleteButton.classList.add('icon-button'); 
       deleteButton.onclick = async () => {
         const userId = Authentication._currentUser.id;
@@ -55,7 +54,7 @@ function updateTasksList(): void {
       };
   
       const editButton = document.createElement('button');
-      editButton.innerHTML = '<i class="fas fa-edit"></i>';
+      editButton.innerHTML =  '<img src="./icons/edit.svg" alt="Delete">';
       editButton.classList.add('icon-button'); 
       editButton.onclick = async () => {
         const newDescription = prompt('Edit task description:', task.description);
