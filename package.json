@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "vite --port 8080",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "typescript": "^4.3.2",
@@ -12,6 +14,8 @@
   },
   "dependencies": {
     "@formant/data-sdk": "latest",
+    "@formant/realtime-sdk": "^1.2.0",
+    "@formant/ui-sdk": "^0.0.65",
     "google-protobuf": "^3.21.2"
   }
 }

@@ -2,11 +2,13 @@ import { Authentication } from "@formant/data-sdk";
 import { database, Task } from "./database";
 import { getEvent, createEvent } from "./events"; 
 
-
+let userId: any = null;
+let token: any = null;
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         await Authentication.waitTilAuthenticated();
-        const userId = Authentication._currentUser.id;
+        userId = (Authentication as any)._currentUser.id;
+        token = (Authentication as any)._token;
         if (userId) {
             await displayAndRefreshTasks(userId);
         }
@@ -24,7 +26,6 @@ function updateTaskStyle(label: HTMLElement, isCompleted: boolean): void {
 }
 
 document.addEventListener('modalClosed', async () => {
-    const userId = Authentication._currentUser.id;
     if (userId) {
       await displayAndRefreshTasks(userId);
     }
@@ -32,14 +33,18 @@ document.addEventListener('modalClosed', async () => {
   
   async function displayAndRefreshTasks(userId: string): Promise<void> {
     const container = document.getElementById('tasksContainer');
-    container.innerHTML = '';
+    if(!container){
+        return;
+       
 
+    }
+    container.innerHTML = '';
     const tasks = await database.loadTasks(userId);
     const currentDate = new Date().toISOString().split('T')[0]; // Get the current date in UTC
 
     // Fetch all events in parallel
     const eventsPromises = tasks.map(task => 
-        task.lastCheckedId ? getEvent(Authentication._token, task.lastCheckedId) : Promise.resolve(null)
+        task.lastCheckedId ? getEvent(token, task.lastCheckedId) : Promise.resolve(null)
     );
     const events = await Promise.all(eventsPromises);
 
@@ -71,7 +76,7 @@ document.addEventListener('modalClosed', async () => {
                 try {
                     checkbox.disabled = true;
                     updateTaskStyle(label, true);
-                    let uuid = await createEvent(Authentication._token, userId, task.description);
+                    let uuid: any = await createEvent(token, userId, task.description);
                     const newTask: Task = { ...task, lastCheckedId: uuid };
                     await database.updateTask(userId, index, newTask);
                     tasks[index] = newTask;

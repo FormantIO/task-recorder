@@ -1,5 +1,4 @@
 // src/config.ts
-import { database } from "./database";
 import { Authentication } from "@formant/data-sdk";
 import { database, Task } from "./database";
 
@@ -10,9 +9,10 @@ const btn = document.getElementById("taskConfigBtn") as HTMLElement;
 const span = document.getElementsByClassName("close")[0] as HTMLElement;
 const tasksList = document.getElementById("tasksList") as HTMLElement;
 
+let userId: any = null;
 btn.onclick = async function() {
   modal.style.display = "block";
-  const userId = Authentication._currentUser.id;
+  userId =  (Authentication as any)._currentUser.id;
   if (userId) {
     tasks = await database.loadTasks(userId);
     updateTasksList();
@@ -45,7 +45,6 @@ function updateTasksList(): void {
       deleteButton.innerHTML = '<img src="./icons/delete.svg" alt="Delete">';
       deleteButton.classList.add('icon-button'); 
       deleteButton.onclick = async () => {
-        const userId = Authentication._currentUser.id;
         if (userId) {
           await database.deleteTask(userId, index);
           tasks.splice(index, 1); // Update local tasks array
@@ -59,7 +58,6 @@ function updateTasksList(): void {
       editButton.onclick = async () => {
         const newDescription = prompt('Edit task description:', task.description);
         if (newDescription !== null) {
-          const userId = Authentication._currentUser.id;
           if (userId) {
             const newTask: Task = { ...task, description: newDescription };
             await database.updateTask(userId, index, newTask);
@@ -81,7 +79,6 @@ function updateTasksList(): void {
     const newTaskDescription = taskInput.value.trim();
     
     if (newTaskDescription) {
-        const userId = Authentication._currentUser.id;
         
         if (userId) {
             const existingTasks = await database.loadTasks(userId);
@@ -92,7 +89,8 @@ function updateTasksList(): void {
             if (!isDuplicate) {
                 const newTask: Task = {
                     description: newTaskDescription,
-                    startDate: new Date()
+                    startDate: new Date(),
+                    lastCheckedId: null
                 };
                 tasks.push(newTask);
                 await database.saveTasks(userId, tasks);

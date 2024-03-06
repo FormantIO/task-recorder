@@ -1,7 +1,6 @@
 import { Uuid } from "@formant/data-sdk";
-import { Task } from "./database";
 
-function sanitizeTag(value) {
+function sanitizeTag(value: any) {
   // Replace any character that is not alphanumeric, dash, period, or underscore with an underscore
   return String(value).replace(/[^a-zA-Z0-9-._]/g, '_').slice(0, 255);
 }
