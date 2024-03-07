@@ -173,11 +173,48 @@ margin-bottom: 15px;
 
 
 #tasksList li span {
-  margin-right: 10px; /* Adjust the right margin as needed */
+  margin-right: 10px;
+  color: black; /* Adjust the right margin as needed */
 }
 
 @media screen and (max-width: 768px) {
   #tasksContainer {
       max-width: 90%;
   }
+}
+
+#noTasksMessage {
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Hover effect for noTasksMessage */
+#noTasksMessage:hover {
+  background-color: rgba(92, 107, 192, 0.8); /* Adjust the color as needed */
+  color: white;
+}
+
+/* Focus effect for noTasksMessage */
+#noTasksMessage:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(92, 107, 192, 0.6); /* Adjust as needed */
+}
+
+#doneBtn {
+  display: block; /* Make the button a block element */
+  width: max-content; /* Set the width to the content of the button */
+  margin: 0 auto; /* Auto margins on both sides for horizontal centering */
+  padding: 10px 20px; /* Padding for the button */
+  background: #5c6bc0; /* Background color */
+  color: #fff; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Cursor pointer */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#doneBtn:hover {
+  background: #3949ab; /* Darker background on hover */
 }

@@ -16,23 +16,23 @@
 
 <div id="taskModal" class="modal">
     <div class="modal-content">
-        <span class="close button">&times;</span>
         <h2>Add Task</h2>
         <div class="task-input-container">
             <input type="text" id="taskInput" placeholder="Enter Task">
             <button id="addTaskBtn" class="icon-button"><i class="fas fa-plus"></i></button>
-
         </div>
         <ul id="tasksList"></ul>
+        <!-- Done button at the bottom -->
+        <button id="doneBtn" class="modal-button">Done</button>
     </div>
 </div>
 
 <script type="module" src="/src/config.ts"></script>
 <h1 style="text-align: center;" >Mark Your Daily Progress</h1>
-<h3 id="noTasksMessage" style="text-align: center; display: none;">Add some tasks!</h3>
 
 <div id="tasksContainer">
-
+    <h3 id="noTasksMessage" style="text-align: center; display: none;">Add some tasks!</h3>
+    
     <!-- Tasks will be populated here -->
 </div>
 

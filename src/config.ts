@@ -1,4 +1,3 @@
-// src/config.ts
 import { Authentication } from "@formant/data-sdk";
 import { database, Task } from "./database";
 
@@ -6,24 +5,34 @@ let tasks: Task[] = [];
 
 const modal = document.getElementById("taskModal") as HTMLElement;
 const btn = document.getElementById("taskConfigBtn") as HTMLElement;
-const span = document.getElementsByClassName("close")[0] as HTMLElement;
+const addTasks = document.getElementById("noTasksMessage") as HTMLElement;
 const tasksList = document.getElementById("tasksList") as HTMLElement;
 
 let userId: any = null;
 btn.onclick = async function() {
+  openConfig();
+};
+
+addTasks.onclick = async function (){
+  openConfig();
+}
+
+async function openConfig(){
   modal.style.display = "block";
   userId =  (Authentication as any)._currentUser.id;
   if (userId) {
     tasks = await database.loadTasks(userId);
     updateTasksList();
   }
-};
+}
 
-span.onclick = function() {
+const doneBtn = document.getElementById("doneBtn");
+doneBtn.onclick = function() {
   modal.style.display = "none";
-  // Dispatch a custom event
+  // Dispatch a custom event if necessary
   document.dispatchEvent(new Event('modalClosed'));
 };
+
 
 window.onclick = function(event) {
   var modalBackground = document.getElementById('taskModal');
@@ -42,38 +51,60 @@ function updateTasksList(): void {
     textSpan.textContent = task.description;
     listItem.appendChild(textSpan);
     
-      
-      const deleteButton = document.createElement('button');
-      deleteButton.innerHTML = '<img src="/task-recorder/icons/delete.svg" alt="Delete">';
-      deleteButton.classList.add('icon-button'); 
-      deleteButton.onclick = async () => {
-        if (userId) {
-          await database.deleteTask(userId, index);
-          tasks.splice(index, 1); // Update local tasks array
-          updateTasksList(); // Update UI
-        }
-      };
+    const deleteButton = createDeleteButton(index);
+    const editButton = createEditButton(task, index, textSpan, listItem);
   
-      const editButton = document.createElement('button');
-      editButton.innerHTML =  '<img src="/task-recorder/icons/edit.svg" alt="Edit">';
-      editButton.classList.add('icon-button'); 
-      editButton.onclick = async () => {
-        const newDescription = prompt('Edit task description:', task.description);
-        if (newDescription !== null) {
-          if (userId) {
-            const newTask: Task = { ...task, description: newDescription };
-            await database.updateTask(userId, index, newTask);
-            tasks[index] = newTask; // Update local tasks array
-            updateTasksList(); // Update UI
-          }
-        }
-      };
-  
-      listItem.appendChild(deleteButton);
-      listItem.appendChild(editButton);
-      tasksList.appendChild(listItem);
-    });
-  }
+    listItem.appendChild(deleteButton);
+    listItem.appendChild(editButton);
+    tasksList.appendChild(listItem);
+  });
+}
+function createDeleteButton(index: number) {
+  const deleteButton = document.createElement('button');
+  deleteButton.innerHTML = '<img src="/task-recorder/icons/delete.svg" alt="Delete">';
+  deleteButton.classList.add('icon-button'); 
+  deleteButton.onclick = async () => {
+    if (userId) {
+      await database.deleteTask(userId, index);
+      tasks.splice(index, 1); // Update local tasks array
+      updateTasksList(); // Update UI
+    }
+  };
+  return deleteButton;
+}
+
+
+
+function createEditButton(task: Task, index: number, textSpan: HTMLSpanElement, listItem: HTMLLIElement) {
+  const editButton = document.createElement('button');
+  editButton.innerHTML = '<img src="/task-recorder/icons/edit.svg" alt="Edit">';
+  editButton.classList.add('icon-button');
+  editButton.onclick = () => {
+    const inputField = document.createElement('input');
+    inputField.type = 'text';
+    inputField.value = task.description;
+    inputField.classList.add('task-edit-input');
+    
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.classList.add('icon-button');
+
+    saveButton.onclick = async () => {
+      const updatedDescription = inputField.value.trim();
+      if (updatedDescription) {
+        const newTask: Task = { ...task, description: updatedDescription };
+        await database.updateTask(userId, index, newTask);
+        tasks[index] = newTask; // Update local tasks array
+        updateTasksList(); // Update UI
+      }
+    };
+
+    listItem.replaceChild(inputField, textSpan);
+    listItem.appendChild(saveButton);
+    editButton.style.display = 'none';
+  };
+  return editButton;
+}
 
 
   async function addTask(): Promise<void> {

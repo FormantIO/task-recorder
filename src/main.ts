@@ -34,11 +34,21 @@ document.addEventListener('modalClosed', async () => {
   
   async function displayAndRefreshTasks(userId: string): Promise<void> {
     const container = document.getElementById('tasksContainer');
-    const noTasksMessage = document.getElementById('noTasksMessage');
-    if(!container || !noTasksMessage){
+    if(!container){
         return;
     }
-    container.innerHTML = '';
+    const noTasksMessage = document.getElementById("noTasksMessage");
+    console.log(noTasksMessage);
+    if(!noTasksMessage){
+        return;
+    }
+    
+    Array.from(container.children).forEach(child => {
+        if (child.id !== "noTasksMessage") {
+            container.removeChild(child);
+        }
+    });
+
 
     const tasks = await database.loadTasks(userId);
     if (tasks.length === 0) {
