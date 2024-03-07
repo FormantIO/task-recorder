@@ -7,6 +7,7 @@ const modal = document.getElementById("taskModal") as HTMLElement;
 const btn = document.getElementById("taskConfigBtn") as HTMLElement;
 const addTasks = document.getElementById("noTasksMessage") as HTMLElement;
 const tasksList = document.getElementById("tasksList") as HTMLElement;
+const doneBtn = document.getElementById("doneBtn") as HTMLElement;
 
 let userId: any = null;
 btn.onclick = async function() {
@@ -26,7 +27,6 @@ async function openConfig(){
   }
 }
 
-const doneBtn = document.getElementById("doneBtn");
 doneBtn.onclick = function() {
   modal.style.display = "none";
   // Dispatch a custom event if necessary
