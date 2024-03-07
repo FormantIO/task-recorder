@@ -38,7 +38,6 @@ document.addEventListener('modalClosed', async () => {
         return;
     }
     const noTasksMessage = document.getElementById("noTasksMessage");
-    console.log(noTasksMessage);
     if(!noTasksMessage){
         return;
     }
