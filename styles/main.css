@@ -1,6 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
+html{
+  height: 100%; /* Makes sure the html and body are at least the height of the viewport */
+  margin: 0; /* Resets any default margin */
+  padding: 0; /* Resets any default padding */
+}
 /* Basic Reset and Typography */
 body, h1, h2, h3, ul, li, button, input {
     margin: 0;
@@ -8,6 +13,8 @@ body, h1, h2, h3, ul, li, button, input {
     border: 0;
     font-family: 'JetBrains Mono', monospace;
 }
+
+/* If you're using a container for your content, make sure it allows for flexible stretching */
 
 body {
     background-color: rgb(28, 30, 45); /* Dark Slate Blue */
