@@ -103,6 +103,16 @@ button i {
   background: rgba(57, 73, 171, 0.8); /* Darken on hover */
 }
 
+.taskBtnContainer {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  
+}
+
+.taskSpan {
+  width: 100%;
+}
 .modal-button {
   padding: 10px 20px;
   background: #5c6bc0;

@@ -48,14 +48,19 @@ function updateTasksList(): void {
     const listItem = document.createElement('li');
   
     const textSpan = document.createElement('span');
+    textSpan.classList.add("taskSpan");
     textSpan.textContent = task.description;
     listItem.appendChild(textSpan);
     
     const deleteButton = createDeleteButton(index);
     const editButton = createEditButton(task, index, textSpan, listItem);
-  
-    listItem.appendChild(deleteButton);
-    listItem.appendChild(editButton);
+    
+    const taskBtnContainer = document.createElement('div');
+    taskBtnContainer.classList.add("taskBtnContainer");
+    taskBtnContainer.appendChild(deleteButton);
+    taskBtnContainer.appendChild(editButton);
+    listItem.appendChild(taskBtnContainer);
+
     tasksList.appendChild(listItem);
   });
 }
