@@ -143,4 +143,10 @@ function createEditButton(task: Task, index: number, textSpan: HTMLSpanElement, 
     }
 }
 
+document.getElementById("taskInput")?.addEventListener("keyup", function(event) {
+  if (event.key === "Enter") {
+    addTask();
+  }
+});
+
 document.getElementById("addTaskBtn")?.addEventListener("click", addTask);
