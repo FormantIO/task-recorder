@@ -61,7 +61,7 @@ button {
   justify-content: center;
   height: 40px;
   padding: 0 15px;
-  border-radius: 20px;
+  border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
   background: #667EEA;
@@ -188,10 +188,16 @@ margin-bottom: 15px;
   margin-right: 5px; /* Optional: Adds some space on the right of the input field */
 }
 
+#tasksList li {
+  background-color: #3B4668; /* This is a darker shade similar to the input box */
+  padding: 5px 10px;
+  border-radius: 4px; /* Adjust as necessary for the desired roundness */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
+}
 #tasksList li span {
   margin-right: 10px;
-  color: black; /* Adjust the right margin as needed */
+  color: white; /* Adjust the right margin as needed */
 }
 
 @media screen and (max-width: 768px) {
