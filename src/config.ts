@@ -109,6 +109,7 @@ function createEditButton(task: Task, index: number, textSpan: HTMLSpanElement, 
 
     listItem.replaceChild(inputField, textSpan);
     listItem.appendChild(saveButton);
+    inputField.focus();
     editButton.style.display = 'none';
   };
   return editButton;
