@@ -36,8 +36,11 @@ doneBtn.onclick = function() {
 
 window.onclick = function(event) {
   var modalBackground = document.getElementById('taskModal');
+  var taskError = document.getElementById("taskError") as HTMLSpanElement;
   if (event.target === modalBackground) {
+    
     modal.style.display = "none";
+    taskError.style.display = "none";
     document.dispatchEvent(new Event('modalClosed'));
   }
 };
@@ -112,36 +115,40 @@ function createEditButton(task: Task, index: number, textSpan: HTMLSpanElement, 
 }
 
 
-  async function addTask(): Promise<void> {
-    const taskInput = document.getElementById("taskInput") as HTMLInputElement;
-    const newTaskDescription = taskInput.value.trim();
-    
-    if (newTaskDescription) {
-        
-        if (userId) {
-            const existingTasks = await database.loadTasks(userId);
-            
-            // Check if a task with the same description already exists
-            const isDuplicate = existingTasks.some(task => task.description.toLowerCase() === newTaskDescription.toLowerCase());
+async function addTask() {
+  const taskInput = document.getElementById("taskInput") as HTMLInputElement;
+  const taskError = document.getElementById("taskError") as HTMLSpanElement;
+  const newTaskDescription = taskInput.value.trim();
+  
+  if (newTaskDescription) {
+      if (userId) {
+          const existingTasks = await database.loadTasks(userId);
+          
+          // Check if a task with the same description already exists
+          const isDuplicate = existingTasks.some(task => task.description.toLowerCase() === newTaskDescription.toLowerCase());
 
-            if (!isDuplicate) {
-                const newTask: Task = {
-                    description: newTaskDescription,
-                    startDate: new Date(),
-                    lastCheckedId: null
-                };
-                tasks.push(newTask);
-                await database.saveTasks(userId, tasks);
-                updateTasksList();
-                taskInput.value = ''; // Clear the input field
-            } else {
-                alert('A task with this description already exists.');
-            }
-        }
-    } else {
-        alert('Please enter a task description.');
-    }
+          if (!isDuplicate) {
+              const newTask: Task = {
+                  description: newTaskDescription,
+                  startDate: new Date(),
+                  lastCheckedId: null
+              };
+              tasks.push(newTask);
+              await database.saveTasks(userId, tasks);
+              updateTasksList();
+              taskInput.value = ''; // Clear the input field
+              taskError.style.display = 'none'; // Hide error message
+          } else {
+              taskError.textContent = 'A task with this description already exists.';
+              taskError.style.display = 'block'; // Show error message
+          }
+      }
+  } else {
+      taskError.textContent = 'Please enter a task description.';
+      taskError.style.display = 'block'; // Show error message
+  }
 }
+
 
 document.getElementById("taskInput")?.addEventListener("keyup", function(event) {
   if (event.key === "Enter") {

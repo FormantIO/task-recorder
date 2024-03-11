@@ -241,3 +241,11 @@ margin-bottom: 15px;
 #doneBtn:hover {
   background: #3949ab; /* Darker background on hover */
 }
+
+.error-message {
+  color: red;
+  font-size: 1.5rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: none;
+}
