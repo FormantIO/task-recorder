@@ -28,9 +28,19 @@ async function openConfig(){
 }
 
 doneBtn.onclick = function() {
-  modal.style.display = "none";
-  // Dispatch a custom event if necessary
-  document.dispatchEvent(new Event('modalClosed'));
+  const taskInput = document.getElementById("taskInput") as HTMLInputElement;
+  const taskError = document.getElementById("taskError") as HTMLSpanElement;
+
+  // Check if there's text in the task input field
+  if (taskInput.value.trim() !== '') {
+    taskError.textContent = 'Warning: Unsaved Task';
+    taskError.style.display = 'block'; // Show the warning message
+  } else {
+    modal.style.display = "none"; // Close the modal if there's no unsaved task
+    taskError.style.display = "none"; // Hide any existing error message
+    document.dispatchEvent(new Event('modalClosed'));
+  }
+
 };
 
 
